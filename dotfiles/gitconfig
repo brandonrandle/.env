@@ -6,7 +6,7 @@
 [push]
 	default = simple
 [gpg]
-	program = /usr/local/bin/krgpg
+	program = /usr/bin/krgpg
 [commit]
 	gpgSign = true
 [tag]
