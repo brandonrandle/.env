@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # A script to setup my environment settings.
 
+
 # FUNCTION - DETERMINE OPERATING SYSTEM {{{
 function determine_os() {
   # SHOW AVAILBLE OSES
@@ -29,20 +30,23 @@ function determine_os() {
   printf "Setup proceeding for $PLATFORM.\n\n"
 }
 # }}}
-# FUNCTION - CLEAR PREVIOUS SETTINGS {{{
+# FUNCTION - BACKUP PREVIOUS SETTINGS {{{
 function clear_settings() {
-  printf "Clearing previous settings...\n\n"
+  # set a timestamp to append to backed-up files
+  TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`
+
+  printf "Backing up previous settings...\n\n"
   cd ~
-  rm .vimrc
-  rm .bashrc
-  rm .bash_profile
-  rm .gitconfig
-  rm .inputrc
-  rm .vim
+  mv .vimrc .vimrc_old_$TIMESTAMP
+  mv .bashrc .bashrc_old_$TIMESTAMP
+  mv .bash_profile .bash_profile_old_$TIMESTAMP
+  mv .gitconfig .gitconfig_old_$TIMESTAMP
+  mv .inputrc .inputrc_old_$TIMESTAMP
+  mv .vim .vim_old_$TIMESTAMP
 
   # Tilix is only usable on Ubuntu
   if [[ $PLATFORM = 'Ubuntu 16.04' ]] || [[ $PLATFORM = 'Ubuntu 18.04' ]]; then
-    rm -rf ~/.config/tilix
+    mv ~/.config/tilix ~/.config/tilix_old_$TIMESTAMP
   fi
 }
 # }}}
@@ -55,12 +59,6 @@ function create_settings() {
   ln -s ~/.env/dotfiles/gitconfig ~/.gitconfig
   ln -s ~/.env/dotfiles/inputrc ~/.inputrc
   ln -s ~/.env/dotfiles/vim ~/.vim
-
-  # Tilix is only usable on Ubuntu
-  if [[ $PLATFORM = 'Ubuntu 16.04' ]] || [[ $PLATFORM = 'Ubuntu 18.04' ]]; then
-    mkdir -p ~/.config/tilix
-    ln -s ~/.env/themes/tilix_themes ~/.config/tilix/schemes
-  fi
 }
 # }}}
 # FUNCTION - INITIALIZE SUBMODULES {{{
@@ -122,6 +120,8 @@ function install_tilix() {
     read -p 'Would you like to install Tilix? (y/n) ' -n1 answer
     printf "\n\n"
     if [[ $answer = [yY] ]]; then
+      mkdir -p ~/.config/tilix
+      ln -s ~/.env/themes/tilix_themes ~/.config/tilix/schemes
       if [[ $PLATFORM = 'Ubuntu 16.04' ]]; then
         sudo add-apt-repository -y ppa:webupd8team/terminix
         sudo apt-get update
