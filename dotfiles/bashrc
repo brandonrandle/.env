@@ -1,11 +1,10 @@
-#
 # ~/.bashrc
-#
+# Brandon Randle
 
-# source git-completion script for git autocomplete
-source ~/.env/git-completion.bash
-
+###############################################################################
 # PLATFORM DETERMINATION
+# other settings can use this platform determination to customize settings
+###############################################################################
 PLATFORM='unknown'
 UNAMESTR=`uname`
 if [[ "$UNAMESTR" == 'Linux' ]]; then
@@ -14,6 +13,10 @@ elif [[ "$UNAMESTR" == 'Darwin' ]]; then
     PLATFORM='mac'
 fi
 
+
+###############################################################################
+# GENERAL SETTINGS
+###############################################################################
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -25,18 +28,24 @@ PS1='\[\e[32m\]\$: \[\e[37m\]'
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-# SET PATH
+# ADD HOME BIN TO PATH
 export PATH=${PATH}:${HOME}/bin
 
+
+###############################################################################
+# GIT
+# source git-completion script for git autocomplete
+###############################################################################
+source ~/.env/git-completion.bash
+
+
+###############################################################################
 # ALIASES
+###############################################################################
+
+# LS - Adds coloring to default `ls` use
 if [[ $PLATFORM == 'linux' ]]; then
     alias ls='ls --color=auto -x'
 elif [[ $PLATFORM == 'mac' ]]; then
     alias ls='ls -G -x'
 fi
-
-# pyenv initialization settings
-# export WORKON_HOME=~/.ve
-# export PROJECT_HOME=~/workspace
-# eval "$(pyenv init -)"
-# pyenv virtualenvwrapper_lazy
