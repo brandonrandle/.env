@@ -48,6 +48,14 @@ function clear_settings() {
 # }}}
 # FUNCTION - CREATE NEW SETTINGS {{{
 function create_settings() {
+  read -p 'Would you like to install ERDC settings? (y/n) ' -n1 answer
+  printf "\n\n"
+  if [[ $answer = [yY] ]]; then
+    printf "Adding ERDC settings to bashrc..."
+    printf "\n\n"
+    echo "# ERDC Settings" >> ~/.env/dotfiles/bashrc
+    echo "source ~/.env/dotfiles/bashrc_erdc" >> ~/.env/dotfiles/bashrc
+  fi
   printf "Symlinking new settings...\n\n"
   ln -s ~/.env/dotfiles/vimrc ~/.vimrc
   ln -s ~/.env/dotfiles/bashrc ~/.bashrc

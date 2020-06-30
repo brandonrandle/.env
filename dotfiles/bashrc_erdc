@@ -1,0 +1,16 @@
+###############################################################################
+# HPCMP
+###############################################################################
+PATH=/usr/local/ossh/bin:/usr/local/krb5/bin:$PATH
+export KRB5_CONFIG="/usr/local/krb5/etc/krb5.conf"
+alias pkinit="DYLD_INSERT_LIBRARIES=$HOME/build/zeromalloc-1.0/lib/libzeromalloc.dylib pkinit"
+
+###############################################################################
+# CAC SSH
+###############################################################################
+alias setSSHKeyChain='export CAClibrary=/usr/lib/ssh-keychain.dylib'
+setSSHKeyChain
+
+alias startsshagent='eval `ssh-agent`; ssh-add -s $CAClibrary && env | grep SSH > $HOME/.ssh-agent; echo "export CAClibrary=$CAClibrary" >> $HOME/.ssh-agent'
+alias setsshauthsock='. $HOME/.ssh-agent'
+alias killsshagent='echo BEFORE:; ps -ef | grep ssh-agent; pkill ssh-agent; echo AFTER:; pgrep ssh-agent'
