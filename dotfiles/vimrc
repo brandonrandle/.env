@@ -39,6 +39,21 @@ Plug 'tpope/vim-fugitive'
 " vim commentary for easy commenting of code
 Plug 'tpope/vim-commentary'
 
+" singularity syntax highlighting
+Plug 'rbberger/vim-singularity-syntax'
+
+" pug syntax highlighting
+Plug 'digitaltoad/vim-pug'
+
+" nginx syntax highlighting
+Plug 'chr4/nginx.vim'
+
+" React JSC syntax highlighting
+Plug 'MaxMEllon/vim-jsx-pretty'
+
+" liquid syntax highlighting
+Plug 'tpope/vim-liquid'
+
 call plug#end()
 " }}}
 
@@ -251,6 +266,8 @@ augroup configgroup
     autocmd BufEnter *.twig setlocal tabstop=2
     autocmd BufEnter *.twig setlocal shiftwidth=2
     autocmd BufEnter *.twig setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.tex setlocal syntax=tex
+    autocmd BufNewFile,BufRead *.cls setlocal syntax=tex
 augroup END
 
 " }}}
