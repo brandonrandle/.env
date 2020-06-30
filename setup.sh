@@ -32,17 +32,44 @@ function determine_os() {
 # FUNCTION - CLEAR PREVIOUS SETTINGS {{{
 function clear_settings() {
   printf "Clearing previous settings...\n\n"
+  datetime=`date +"%Y-%m-%d_%T"`
   cd ~
-  rm .vimrc
-  rm .bashrc
-  rm .bash_profile
-  rm .gitconfig
-  rm .inputrc
-  rm .vim
+
+  # vimrc
+  if [ -f ".vimrc" ]; then
+    mv .vimrc .vimrc_$datetime
+  fi
+
+  # vim
+  if [ -d ".vim" ]; then
+    mv .vim .vim_$datetime
+  fi
+
+  # bashrc
+  if [ -f ".bashrc" ]; then
+    mv .bashrc .bashrc_$datetime
+  fi
+
+  # bash_profile
+  if [ -f ".bash_profile" ]; then
+    mv .bash_profile .bash_profile_$datetime
+  fi
+  
+  # gitconfig
+  if [ -f ".gitconfig" ]; then
+    mv .gitconfig .gitconfig_$datetime
+  fi
+
+  # inputrc
+  if [ -f ".inputrc" ]; then
+    mv .inputrc .inputrc_$datetime
+  fi
 
   # Tilix is only usable on Ubuntu
   if [[ $PLATFORM = 'Ubuntu 16.04' ]] || [[ $PLATFORM = 'Ubuntu 18.04' ]]; then
-    rm -rf ~/.config/tilix
+    if [ -d "~/.config/tilix" ]; then
+      mv ~/.config/tilix ~/.config/tilix_$datetime
+    fi
   fi
 }
 # }}}
@@ -53,6 +80,7 @@ function create_settings() {
   if [[ $answer = [yY] ]]; then
     printf "Adding ERDC settings to bashrc..."
     printf "\n\n"
+    echo "" >> ~/.env/dotfiles/bashrc
     echo "# ERDC Settings" >> ~/.env/dotfiles/bashrc
     echo "source ~/.env/dotfiles/bashrc_erdc" >> ~/.env/dotfiles/bashrc
   fi
