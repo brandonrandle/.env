@@ -92,6 +92,12 @@ function create_settings() {
   ln -s ~/.env/dotfiles/gitconfig ~/.gitconfig
   ln -s ~/.env/dotfiles/inputrc ~/.inputrc
   ln -s ~/.env/dotfiles/vim ~/.vim
+
+  # install git bash completion
+  printf "Installing git completion script...\n\n"
+  if ! [[ -f "~/.git-completion.bash" ]]; then
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+  fi
 }
 # }}}
 # FUNCTION - INITIALIZE SUBMODULES {{{
