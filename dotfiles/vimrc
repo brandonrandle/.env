@@ -22,6 +22,9 @@ Plug 'leafgarland/typescript-vim'
 " javascript syntax highlighting
 Plug 'pangloss/vim-javascript'
 
+" tintin++ syntax highlighting
+Plug 'LokiChaos/vim-tintin'
+
 " beancount syntax highlighting and misc commands
 Plug 'nathangrigg/vim-beancount'
 
@@ -116,7 +119,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " using gruvbox color scheme
 set t_Co=256
-colorscheme gruvbox
+silent! colorscheme gruvbox
 set background=dark
 
 " enable syntax processing/highlighting
@@ -220,6 +223,13 @@ set foldmethod=indent
 " remap space to toggle folds
 nnoremap <space> za
 
+" remember folds
+augroup remember_folds
+    autocmd!
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent! loadview
+augroup END
+
 " }}}
 " key mappings {{{
 
@@ -234,6 +244,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+nnoremap m :w<Bar>:!clear && make && ./a.out<CR>
 
 " }}}
 " autogroups {{{
@@ -254,9 +266,12 @@ augroup configgroup
     autocmd FileType typescript setlocal shiftwidth=2
     autocmd FileType typescript setlocal softtabstop=2
     autocmd FileType javascript setlocal expandtab
-    autocmd FileType javascript setlocal tabstop=4
-    autocmd FileType javascript setlocal shiftwidth=4
-    autocmd FileType javascript setlocal softtabstop=4
+    autocmd FileType javascript setlocal tabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2
+    autocmd FileType javascript setlocal softtabstop=2
+    autocmd BufEnter *.json setlocal tabstop=2
+    autocmd BufEnter *.json setlocal shiftwidth=2
+    autocmd BufEnter *.json setlocal softtabstop=2
     autocmd BufEnter Makefile setlocal noexpandtab
     autocmd BufEnter *.sh setlocal tabstop=2
     autocmd BufEnter *.sh setlocal shiftwidth=2
@@ -317,6 +332,10 @@ set encoding=utf-8
 
 " set custom command for this file
 set modelines=2
+
+" for project-specific configuration
+set exrc
+set secure
 
 " ensures the vimrc uses fold markers and is folded by default
 " vim:foldmethod=marker:foldlevel=0
