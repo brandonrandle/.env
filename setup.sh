@@ -9,6 +9,7 @@ function determine_os() {
   printf "(1) Ubuntu 16.04\n"
   printf "(2) Ubuntu 18.04\n"
   printf "(3) MacOS (requires Homebrew)\n"
+  printf "(4) CentOS 7\n"
   printf "\n"
   read -p 'Please choose an operating system: ' -n1 answer
   printf "\n"
@@ -20,6 +21,8 @@ function determine_os() {
     PLATFORM='Ubuntu 18.04'
   elif [[ $answer = '3' ]]; then
     PLATFORM='MacOS'
+  elif [[ $answer = '4' ]]; then
+    PLATFORM='CentOS 7'
   else
     printf "That is not an option. Try again.\n"
     exit 0
@@ -119,6 +122,11 @@ function install_vim() {
       printf "\n"
       brew install vim
       printf "\n"
+    elif [[ $PLATFORM = 'CentOS 7' ]]; then
+      printf "Installing Vim..."
+      print "\n"
+      sudo yum install -y vim
+      printf "\n"
     else
       printf "Installing Vim..."
       printf "\n"
@@ -143,6 +151,18 @@ function install_ag() {
       printf "Installing ag..."
       printf "\n"
       brew install the_silver_searcher
+      printf "\n"
+    elif [[ $PLATFORM = 'CentOS 7' ]]; then
+      printf "Installing ag..."
+      printf "\n"
+      sudo yum install -y pcre-devel
+      sudo yum install -y x2-devel
+      sudo yum install -y automake
+      cd /usr/local/src
+      sudo git clone https://github.com/ggreer/the_silver_searcher.git
+      cd the_silver_searcher
+      sudo ./build.sh
+      sudo make install
       printf "\n"
     else
       printf "Installing ag..."
@@ -170,6 +190,13 @@ function install_tilix() {
         printf "Installing Tilix..."
         printf "\n"
         sudo apt-get install -y tilix
+        printf "\n"
+      elif [[ $PLATFORM = 'CentOS 7' ]]; then
+        printf "Installing Tilix..."
+        printf "\n"
+        sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/ivoarch/Tilix/repo/epel-7/ivoarch-Tilix-epel-7.repo
+        sudo yum-config-manager --enable ivoarch-Tilix
+        sudo yum install -y tilix
         printf "\n"
       fi
       printf "###################################################################"
