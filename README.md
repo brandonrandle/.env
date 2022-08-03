@@ -1,7 +1,5 @@
 # env
-A repo for my environment settings.  Forked from brandonrandle/.env
-
-I've modified the files to fit my needs/preferences.  Original is dope tho.
+A repo for my environment settings.
 
 ### Features
   - Git completion script
