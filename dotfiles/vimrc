@@ -1,5 +1,7 @@
 " Brandon Randle
 
+" For typescript setup: https://pragmaticpineapple.com/ultimate-vim-typescript-setup/
+
 " plugins
 " load plugins {{{
 
@@ -59,7 +61,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'chr4/nginx.vim'
 
 " React JSC syntax highlighting
-Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " liquid syntax highlighting
 Plug 'tpope/vim-liquid'
