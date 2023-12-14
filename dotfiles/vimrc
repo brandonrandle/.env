@@ -69,6 +69,9 @@ Plug 'tpope/vim-liquid'
 call plug#end()
 " }}}
 
+" find the tag files in current dir or recurse up until its found
+set tags=./tags;~
+
 " plugin configuration
 " ctrlp {{{
 
